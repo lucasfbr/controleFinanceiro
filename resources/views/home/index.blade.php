@@ -1,7 +1,11 @@
-@extends('templates.default')
+@extends('layouts.default')
 
 @section('title', 'Listando Categorias')
 
 @section('container')
-    <h2>Lista de categorias</h2>
+    <div class="container">
+        <div class="row">
+            <h2>Lista de categorias</h2>
+        </div>
+    </div>
 @endsection

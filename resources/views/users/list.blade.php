@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title', 'Categoria de custos')
+@section('title', 'Lista de usuários')
 
 @section('container')
     <div class="container">
@@ -25,13 +25,13 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Administração de categoria de custos
+                        Administração de usuários
                     </h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="{{url('category-costs/add')}}" class="btn btn-default">
+                            <a href="{{url('users/add')}}" class="btn btn-default">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>
                         </div>
@@ -44,20 +44,22 @@
                             <tr>
                                 <th style="width:10px">#</th>
                                 <th>Nome</th>
+                                <th>E-mail</th>
                                 <th>Ação</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($categoryCosts as $category)
+                            @foreach($users as $user)
                             <tr>
-                                <td>{{$category->id}}</td>
-                                <td>{{$category->name}}</td>
+                                <td>{{$user->id}}</td>
+                                <td>{{$user->name}}</td>
+                                <td>{{$user->email}}</td>
                                 <td>
-                                    <a href="{{url('category-costs/edit/'.$category->id)}}" title="Editar">
+                                    <a href="{{url('users/edit/'.$user->id)}}" title="Editar">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </a>
                                     |
-                                    <a href="{{url('category-costs/delete/'.$category->id)}}" title="Remover">
+                                    <a href="{{url('users/delete/'.$user->id)}}" title="Remover">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>

@@ -1,4 +1,4 @@
-@extends('templates.default')
+@extends('layouts.default')
 
 @section('title', 'Adicionar Categoria de custos')
 
@@ -18,7 +18,7 @@
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label class="control-label">Nome</label>
-                            <input type="text" class="form-control" placeholder="Nome" name="name">
+                            <input type="text" class="form-control" placeholder="Nome" name="name" value="{{ old('name') }}" autofocus>
 
                             @if ($errors->has('name'))
                                 <span class="help-block">
