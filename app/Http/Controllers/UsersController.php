@@ -31,16 +31,16 @@ class UsersController extends Controller
 
         $this->validate($request, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:painel/users',
             'password' => 'required|min:6|confirmed',
         ]);
 
         $result = $this->user->create($request->all());
 
         if($result){
-            return redirect('/users')->with('sucesso', 'Usuário cadastrada com sucesso!');
+            return redirect('painel/users')->with('sucesso', 'Usuário cadastrada com sucesso!');
         }else{
-            return redirect('/users')->with('erro', 'Ocorreu algum erro ao cadastrar um novo usuário, tente novamente mais tarde!');
+            return redirect('painel/users')->with('erro', 'Ocorreu algum erro ao cadastrar um novo usuário, tente novamente mais tarde!');
         }
 
     }
@@ -75,9 +75,9 @@ class UsersController extends Controller
 
 
         if($result){
-            return redirect('/users')->with('sucesso', 'Usuário editado com sucesso!');
+            return redirect('painel/users')->with('sucesso', 'Usuário editado com sucesso!');
         }else{
-            return redirect('/users')->with('erro', 'Ocorreu algum erro ao editar um novo usuário, tente novamente mais tarde!');
+            return redirect('painel/users')->with('erro', 'Ocorreu algum erro ao editar um novo usuário, tente novamente mais tarde!');
         }
 
     }
@@ -87,9 +87,9 @@ class UsersController extends Controller
         $user = $this->user->find($id);
 
         if($user->delete()){
-            return redirect('/users')->with('sucesso', 'Usuário deletado com sucesso!');
+            return redirect('painel/users')->with('sucesso', 'Usuário deletado com sucesso!');
         }else{
-            return redirect('/users')->with('erro', 'Ocorreu algum erro ao deletar o usuário, tente novamente mais tarde!');
+            return redirect('painel/users')->with('erro', 'Ocorreu algum erro ao deletar o usuário, tente novamente mais tarde!');
         }
 
     }

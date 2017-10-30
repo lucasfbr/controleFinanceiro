@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth;
 use App\CategoryCosts;
 use Illuminate\Http\Request;
+
 
 class CategoryCostsController extends Controller
 {
@@ -16,8 +18,9 @@ class CategoryCostsController extends Controller
 
     public function index(){
 
+        $user = Auth()->user();
 
-        $categoryCosts = $this->categoryCost->all();
+        $categoryCosts = $user->categoryCosts;
 
         return view('category-costs.list', compact('categoryCosts'));
     }
@@ -37,9 +40,9 @@ class CategoryCostsController extends Controller
         $result = $this->categoryCost->create($request->all());
 
         if($result){
-            return redirect('/category-costs')->with('sucesso', 'Categoria cadastrada com sucesso!');
+            return redirect('painel/category-costs')->with('sucesso', 'Categoria cadastrada com sucesso!');
         }else{
-            return redirect('/category-costs')->with('erro', 'Ocorreu algum erro ao cadastrar uma nova categoria, tente novamente mais tarde!');
+            return redirect('painel/category-costs')->with('erro', 'Ocorreu algum erro ao cadastrar uma nova categoria, tente novamente mais tarde!');
         }
 
     }
@@ -63,9 +66,9 @@ class CategoryCostsController extends Controller
         $result = $category->update($request->all());
 
         if($result){
-            return redirect('/category-costs')->with('sucesso', 'Categoria alterada com sucesso!');
+            return redirect('painel/category-costs')->with('sucesso', 'Categoria alterada com sucesso!');
         }else{
-            return redirect('/category-costs')->with('erro', 'Ocorreu algum erro ao alterar uma categoria, tente novamente mais tarde!');
+            return redirect('painel/category-costs')->with('erro', 'Ocorreu algum erro ao alterar uma categoria, tente novamente mais tarde!');
         }
 
     }
@@ -75,9 +78,9 @@ class CategoryCostsController extends Controller
         $category = $this->categoryCost->find($id);
 
         if($category->delete()){
-            return redirect('/category-costs')->with('sucesso', 'Categoria deletada com sucesso!');
+            return redirect('painel/category-costs')->with('sucesso', 'Categoria deletada com sucesso!');
         }else{
-            return redirect('/category-costs')->with('erro', 'Ocorreu algum erro ao deletar uma categoria, tente novamente mais tarde!');
+            return redirect('painel/category-costs')->with('erro', 'Ocorreu algum erro ao deletar uma categoria, tente novamente mais tarde!');
         }
 
     }

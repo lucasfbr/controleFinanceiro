@@ -12,7 +12,7 @@
                     </h3>
                 </div>
                 <div class="panel-body">
-                    <form method="post" action="{{url('category-costs/create')}}">
+                    <form method="post" action="{{url('painel/category-costs/create')}}">
                         {{ csrf_field() }}
 
 

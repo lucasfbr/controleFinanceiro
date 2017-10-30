@@ -18,5 +18,4 @@ class UsersTableSeeder extends Seeder
             'remember_token' => str_random(10),
         ]);
     }
-
 }

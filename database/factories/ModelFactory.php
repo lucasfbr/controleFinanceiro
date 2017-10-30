@@ -27,5 +27,6 @@ $factory->define(App\CategoryCosts::class, function (Faker\Generator $faker) {
 
     return [
         'name' => $faker->firstName,
+        'user_id' => rand(1,11)
     ];
 });

@@ -31,7 +31,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="{{url('category-costs/add')}}" class="btn btn-default">
+                            <a href="{{url('painel/category-costs/add')}}" class="btn btn-default">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>
                         </div>
@@ -53,11 +53,11 @@
                                 <td>{{$category->id}}</td>
                                 <td>{{$category->name}}</td>
                                 <td>
-                                    <a href="{{url('category-costs/edit/'.$category->id)}}" title="Editar">
+                                    <a href="{{url('painel/category-costs/edit/'.$category->id)}}" title="Editar">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </a>
                                     |
-                                    <a href="{{url('category-costs/delete/'.$category->id)}}" title="Remover">
+                                    <a href="{{url('painel/category-costs/delete/'.$category->id)}}" title="Remover">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>

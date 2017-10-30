@@ -12,7 +12,7 @@
                     </h3>
                 </div>
                 <div class="panel-body">
-                    <form method="post" action="{{url('users/update/'.$user->id)}}">
+                    <form method="post" action="{{url('painel/users/update/'.$user->id)}}">
                         {{ csrf_field() }}
 
 

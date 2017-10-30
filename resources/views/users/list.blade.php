@@ -31,7 +31,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="{{url('users/add')}}" class="btn btn-default">
+                            <a href="{{url('painel/users/add')}}" class="btn btn-default">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>
                         </div>
@@ -55,11 +55,11 @@
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->email}}</td>
                                 <td>
-                                    <a href="{{url('users/edit/'.$user->id)}}" title="Editar">
+                                    <a href="{{url('painel/users/edit/'.$user->id)}}" title="Editar">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </a>
                                     |
-                                    <a href="{{url('users/delete/'.$user->id)}}" title="Remover">
+                                    <a href="{{url('painel/users/delete/'.$user->id)}}" title="Remover">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>
