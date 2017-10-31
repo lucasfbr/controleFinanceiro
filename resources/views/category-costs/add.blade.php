@@ -19,6 +19,7 @@
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label class="control-label">Nome</label>
                             <input type="text" class="form-control" placeholder="Nome" name="name" value="{{ old('name') }}" autofocus>
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id  }}">
 
                             @if ($errors->has('name'))
                                 <span class="help-block">

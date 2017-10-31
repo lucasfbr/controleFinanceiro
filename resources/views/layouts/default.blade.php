@@ -30,6 +30,7 @@
                 @if (!Auth::guest())
                     <li><a href="{{ url('/painel') }}">Home</a></li>
                     <li><a href="{{ url('/painel/category-costs') }}">Categoria de custos</a></li>
+                    <li><a href="{{ url('/painel/bill-receive') }}">Contas a receber</a></li>
                     <li><a href="{{ url('/painel/users') }}">Usuários</a></li>
                 @endif
             </ul>

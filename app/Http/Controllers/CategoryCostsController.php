@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Auth;
 use App\CategoryCosts;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Gate;
 
 class CategoryCostsController extends Controller
 {
@@ -51,6 +51,9 @@ class CategoryCostsController extends Controller
 
         $category = $this->categoryCost->find($id);
 
+        if(Gate::denies('owner', $category))
+           return redirect()->back();
+
         return view('category-costs.edit', compact('category'));
 
     }
@@ -62,6 +65,9 @@ class CategoryCostsController extends Controller
         ]);
 
         $category = $this->categoryCost->find($id);
+
+        if(Gate::denies('owner', $category))
+            return redirect()->back();
 
         $result = $category->update($request->all());
 
@@ -77,6 +83,9 @@ class CategoryCostsController extends Controller
 
         $category = $this->categoryCost->find($id);
 
+        if(Gate::denies('owner', $category))
+            return redirect()->back();
+
         if($category->delete()){
             return redirect('painel/category-costs')->with('sucesso', 'Categoria deletada com sucesso!');
         }else{
@@ -84,6 +93,7 @@ class CategoryCostsController extends Controller
         }
 
     }
+
 
 
 }

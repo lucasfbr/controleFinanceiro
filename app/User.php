@@ -30,4 +30,8 @@ class User extends Authenticatable
     public function categoryCosts(){
         return $this->hasMany(CategoryCosts::class);
     }
+
+    public function billReceives(){
+        return $this->hasMany(BillReceive::class);
+    }
 }
