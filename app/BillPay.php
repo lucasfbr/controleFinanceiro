@@ -37,6 +37,6 @@ class BillPay extends Model
     }
 
     public function categoryCosts(){
-        return $this->belongsTo(CategoryCost::class);
+        return $this->belongsTo(CategoryCost::class, 'category_cost_id');
     }
 }

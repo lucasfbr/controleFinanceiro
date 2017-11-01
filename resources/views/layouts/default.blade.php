@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>School of Net - SON Finanças</title>
+    <title>LVI Finanças</title>
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
 </head>
 <body>
@@ -20,7 +20,7 @@
             </button>
 
             <a class="navbar-brand" href="#">
-                SON Finanças
+                LVI Finanças
             </a>
         </div>
 

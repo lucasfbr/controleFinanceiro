@@ -44,6 +44,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'painel'], function (){
     Route::post('/bill-pay/update/{id}', ['uses' => 'BillPayController@update']);
     Route::get('/bill-pay/delete/{id}', ['uses' => 'BillPayController@delete']);
 
+    Route::get('/statements', ['uses' => 'StatementsController@index']);
+    Route::post('/statements/busca/', ['uses' => 'StatementsController@busca']);
+
 });
 
 Auth::routes();

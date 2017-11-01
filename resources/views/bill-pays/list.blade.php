@@ -54,7 +54,7 @@
                             @foreach($billPays as $bill)
                             <tr>
                                 <td>{{$bill->id}}</td>
-                                <td></td>
+                                <td>{{$bill->categoryCosts->name}}</td>
                                 <td>{{$bill->name}}</td>
                                 <td>{{$bill->value}}</td>
                                 <td>{{$bill->data_launch}}</td>
