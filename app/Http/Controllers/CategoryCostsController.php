@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Auth;
-use App\CategoryCosts;
+use App\CategoryCost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -11,7 +11,7 @@ class CategoryCostsController extends Controller
 {
     protected $categoryCost;
 
-    public function __construct(CategoryCosts $categoryCosts)
+    public function __construct(CategoryCost $categoryCosts)
     {
         $this->categoryCost = $categoryCosts;
     }

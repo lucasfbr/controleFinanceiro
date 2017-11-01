@@ -37,6 +37,13 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'painel'], function (){
     Route::post('/bill-receive/update/{id}', ['uses' => 'BillReceiveController@update']);
     Route::get('/bill-receive/delete/{id}', ['uses' => 'BillReceiveController@delete']);
 
+    Route::get('/bill-pay', ['uses' => 'BillPayController@index']);
+    Route::get('/bill-pay/add', ['uses' => 'BillPayController@add']);
+    Route::post('/bill-pay/create', ['uses' => 'BillPayController@create']);
+    Route::get('/bill-pay/edit/{id}', ['uses' => 'BillPayController@edit']);
+    Route::post('/bill-pay/update/{id}', ['uses' => 'BillPayController@update']);
+    Route::get('/bill-pay/delete/{id}', ['uses' => 'BillPayController@delete']);
+
 });
 
 Auth::routes();

@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title', 'Adicionar Categoria de custos')
+@section('title', 'Adicionar conta a receber')
 
 @section('container')
     <div class="container">

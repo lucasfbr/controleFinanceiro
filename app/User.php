@@ -28,10 +28,14 @@ class User extends Authenticatable
     ];
 
     public function categoryCosts(){
-        return $this->hasMany(CategoryCosts::class);
+        return $this->hasMany(CategoryCost::class);
     }
 
     public function billReceives(){
         return $this->hasMany(BillReceive::class);
+    }
+
+    public function billPays(){
+        return $this->hasMany(BillPay::class);
     }
 }

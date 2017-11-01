@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\User;
-use App\CategoryCost;
+use App\BillPay;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CategoryCostsPolicy
+class BillPayPolicy
 {
     use HandlesAuthorization;
 
@@ -20,9 +20,9 @@ class CategoryCostsPolicy
         //
     }
 
-    public function owner(User $user, CategoryCost $categoryCosts){
+    public function owner(User $user, BillPay $billPay){
 
-        return $user->id == $categoryCosts->user_id;
+        return $user->id == $billPay->user_id;
 
     }
 }

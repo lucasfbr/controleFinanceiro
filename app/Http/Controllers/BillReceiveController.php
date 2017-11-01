@@ -63,6 +63,8 @@ class BillReceiveController extends Controller
 
         $this->validate($request, [
             'name' => 'required|max:255',
+            'value' => 'required',
+            'data_launch' => 'required',
         ]);
 
         $billReceive = $this->billReceive->find($id);

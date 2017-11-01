@@ -5,9 +5,9 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
-class BillReceive extends Model
+class BillPay extends Model
 {
-    protected $fillable = ['name','value','data_launch','user_id'];
+    protected $fillable = ['name','value','data_launch','user_id','category_cost_id'];
 
     public function getDataLaunchAttribute($value){
         return  Carbon::parse($value)->format('d/m/Y');
@@ -36,4 +36,7 @@ class BillReceive extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function categoryCosts(){
+        return $this->belongsTo(CategoryCost::class);
+    }
 }
