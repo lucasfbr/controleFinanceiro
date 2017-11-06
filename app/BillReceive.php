@@ -18,10 +18,11 @@ class BillReceive extends Model
         $this->attributes['data_launch'] = $objDate->format('Y-m-d');
     }
 
-    public function getValueAttribute($value){
+    //public function getValueAttribute($value){
 
-        return  number_format($value,2,',','.');
-    }
+        //return  number_format($value,2,',','.');
+
+    //}
 
     public function setValueAttribute($value){
 

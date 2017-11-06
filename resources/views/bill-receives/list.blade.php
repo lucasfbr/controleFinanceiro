@@ -54,7 +54,7 @@
                             <tr>
                                 <td>{{$bill->id}}</td>
                                 <td>{{$bill->name}}</td>
-                                <td>{{$bill->value}}</td>
+                                <td>{{valorBr($bill->value)}}</td>
                                 <td>{{$bill->data_launch}}</td>
                                 <td>
                                     <a href="{{url('painel/bill-receive/edit/'.$bill->id)}}" title="Editar">

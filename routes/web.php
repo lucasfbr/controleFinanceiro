@@ -47,6 +47,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'painel'], function (){
     Route::get('/statements', ['uses' => 'StatementsController@index']);
     Route::post('/statements/busca/', ['uses' => 'StatementsController@busca']);
 
+    Route::get('/charts', ['uses' => 'ChartsController@index']);
+    Route::post('/charts/busca/', ['uses' => 'ChartsController@busca']);
+
 });
 
 Auth::routes();

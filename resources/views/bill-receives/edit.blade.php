@@ -31,7 +31,7 @@
 
                         <div class="form-group{{ $errors->has('value') ? ' has-error' : '' }}">
                             <label class="control-label">Valor</label>
-                            <input type="text" class="form-control" placeholder="0.000,00" name="value" value="{{$billReceives->value}}" autofocus>
+                            <input type="text" class="form-control" placeholder="0.000,00" name="value" value="{{valorBr($billReceives->value)}}" autofocus>
 
                             @if ($errors->has('value'))
                                 <span class="help-block">

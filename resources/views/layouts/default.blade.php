@@ -30,8 +30,17 @@
                 @if (!Auth::guest())
                     <li><a href="{{ url('/painel') }}">Home</a></li>
                     <li><a href="{{ url('/painel/category-costs') }}">Categoria de custos</a></li>
-                    <li><a href="{{ url('/painel/bill-receive') }}">Contas a receber</a></li>
-                    <li><a href="{{ url('/painel/bill-pay') }}">Contas a pagar</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Contas <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url('/painel/bill-receive') }}">Contas a receber</a></li>
+                            <li><a href="{{ url('/painel/bill-pay') }}">Contas a pagar</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{{ url('/painel/statements') }}">Extratos</a></li>
+                    <li><a href="{{ url('/painel/charts') }}">Gráfico de Gastos</a></li>
                     <li><a href="{{ url('/painel/users') }}">Usuários</a></li>
                 @endif
             </ul>
@@ -75,6 +84,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
+@yield('google-charts')
 
 </body>
 </html>

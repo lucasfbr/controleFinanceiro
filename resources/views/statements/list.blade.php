@@ -31,6 +31,52 @@
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
                     </form>
+
+
+                    <div class="text-center">
+                        <h2>Totais no período</h2>
+                        <p>
+                            <strong>Recebidos:</strong>
+                            R$ {{valorBr($dados['total_receives'])}}
+                        </p>
+                        <p>
+                            <strong>Pagos:</strong>
+                            R$ {{valorBr($dados['total_pays'])}}
+                        </p>
+                        <p>
+                            <strong>Saldo</strong>
+                            R$ {{valorBr($dados['total_receives'] - $dados['total_pays'])}}
+                        </p>
+                    </div>
+
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="list-group">
+                            @if($dados['statements'])
+                                @foreach($dados['statements'] as $statement)
+
+                                    <a href="#" class="list-group-item">
+                                        <h4 class="list-group-item-heading">
+                                            <span class="glyphicon glyphicon-{{isset($statement['category_name']) ? 'minus' : 'plus'}}">
+                                                {{$statement['data_launch']}} - {{$statement['name']}}
+                                            </span>
+                                        </h4>
+                                        @if(isset($statement['category_name']))
+                                            <p class="list-group-item-text">
+                                                {{$statement['category_name']}}
+                                            </p>
+                                        @endif
+                                        <h4 class="text-right">
+                                            <span class="label label-{{isset($statement['category_name']) ? 'danger' : 'success'}}">
+                                                R$ {{isset($statement['category_name']) ? '-' : ''}}{{valorBr($statement['value'])}}
+                                            </span>
+                                        </h4>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
