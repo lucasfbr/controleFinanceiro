@@ -47,6 +47,7 @@
                                 <th>Nome</th>
                                 <th>Valor</th>
                                 <th>Data Lançamento</th>
+                                <th>Status</th>
                                 <th>Ação</th>
                             </tr>
                             </thead>
@@ -58,13 +59,22 @@
                                 <td>{{$bill->name}}</td>
                                 <td>{{valorBr($bill->value)}}</td>
                                 <td>{{$bill->data_launch}}</td>
+                                <td><span class="text-info">{{$bill->status}}</span></td>
                                 <td>
-                                    <a href="{{url('painel/bill-pay/edit/'.$bill->id)}}" title="Editar">
+                                    <a href="{{url('painel/bill-pay/edit/'.$bill->id)}}" title="Editar" class="btn btn-warning">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </a>
                                     |
-                                    <a href="{{url('painel/bill-pay/delete/'.$bill->id)}}" title="Remover">
+                                    <a href="{{url('painel/bill-pay/delete/'.$bill->id)}}" title="Remover" class="btn btn-danger">
                                         <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                    |
+                                    <a href="{{url('painel/bill-pay/editStatus/'.$bill->id)}}" title="Pagar" class="btn btn-success">
+                                        <span class="glyphicon glyphicon-usd"></span>
+                                    </a>
+                                    |
+                                    <a href="#" title="Detalhes" class="btn btn-info">
+                                        <span class="glyphicon glyphicon-search"></span>
                                     </a>
                                 </td>
                             </tr>

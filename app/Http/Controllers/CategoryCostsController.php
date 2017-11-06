@@ -18,9 +18,11 @@ class CategoryCostsController extends Controller
 
     public function index(){
 
-        $user = Auth()->user();
-
-        $categoryCosts = $user->categoryCosts;
+        $categoryCosts = CategoryCost::query()
+                            ->selectRaw('category_costs.*')
+                            ->where('user_id', Auth()->user()->id)
+                            ->orderBy('name', 'asc')
+                            ->get();
 
         return view('category-costs.list', compact('categoryCosts'));
     }

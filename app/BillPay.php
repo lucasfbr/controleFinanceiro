@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
 class BillPay extends Model
 {
-    protected $fillable = ['name','value','data_launch','user_id','category_cost_id'];
+    protected $fillable = ['name','value','data_launch','data_pay','observacoes','status','anexo','user_id','category_cost_id'];
 
     public function getDataLaunchAttribute($value){
         return  Carbon::parse($value)->format('d/m/Y');
@@ -16,6 +16,11 @@ class BillPay extends Model
     public function setDataLaunchAttribute($value){
         $objDate = \DateTime::createFromFormat('d/m/Y', $value);
         $this->attributes['data_launch'] = $objDate->format('Y-m-d');
+    }
+
+    public function setDataPayAttribute($value){
+        $objDate = \DateTime::createFromFormat('d/m/Y', $value);
+        $this->attributes['data_pay'] = $objDate->format('Y-m-d');
     }
 
     //public function getValueAttribute($value){

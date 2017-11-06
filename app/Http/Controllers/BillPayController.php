@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\BillPay;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
+
 
 class BillPayController extends Controller
 {
@@ -103,6 +106,42 @@ class BillPayController extends Controller
             return redirect('painel/bill-pay')->with('sucesso', 'Conta deletada com sucesso!');
         }else{
             return redirect('painel/bill-pay')->with('erro', 'Ocorreu algum erro ao deletar uma Conta, tente novamente mais tarde!');
+        }
+
+    }
+
+    public function editStatus($id){
+
+        $billPays = $this->billPay->find($id);
+
+        if(Gate::denies('owner', $billPays))
+            return redirect()->back();
+
+        $user = Auth()->user();
+
+        $categoryCosts = $user->categoryCosts;
+
+        return view('bill-pays.pay', array('billPays' => $billPays , 'categoryCosts' => $categoryCosts));
+
+    }
+
+    public function updateStatus(Request $request, $id){
+
+        $this->validate($request, [
+            'data_pay' => 'required',
+        ]);
+
+        $billPay = $this->billPay->find($id);
+
+        if(Gate::denies('owner', $billPay))
+            return redirect()->back();
+
+        $result = $billPay->update($request->all());
+
+        if($result){
+            return redirect('painel/bill-pay')->with('sucesso', 'Conta alterada com sucesso!');
+        }else{
+            return redirect('painel/bill-pay')->with('erro', 'Ocorreu algum erro ao alterar uma Conta, tente novamente mais tarde!');
         }
 
     }
