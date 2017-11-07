@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use App\BillPay;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Gate;
 
 
 class BillPayController extends Controller
 {
     protected $billPay;
+    private $extensoes = ['jpg','jpeg','png','pdf'];
+    private $caminhoImg = 'billPay/anexos/';
 
     public function __construct(BillPay $billPay)
     {
@@ -85,7 +87,18 @@ class BillPayController extends Controller
         if(Gate::denies('owner', $billPay))
             return redirect()->back();
 
-        $result = $billPay->update($request->all());
+        $input = $request->all();
+
+        if(!empty($request->file('anexo'))){
+            //armazena a imagem enviada pelo form
+            $image = $request->file('anexo');
+            //pega a extensao da imagem
+            $extensao = $image->getClientOriginalExtension();
+            //recebe o nome da imagem que foi movida para a pasta de destino
+            $input['anexo'] = $this->moverImagem($image, $extensao);
+        }
+
+        $result = $billPay->update($input);
 
         if($result){
             return redirect('painel/bill-pay')->with('sucesso', 'Conta alterada com sucesso!');
@@ -136,7 +149,18 @@ class BillPayController extends Controller
         if(Gate::denies('owner', $billPay))
             return redirect()->back();
 
-        $result = $billPay->update($request->all());
+        $input = $request->all();
+
+        if(!empty($request->file('anexo'))){
+            //armazena a imagem enviada pelo form
+            $image = $request->file('anexo');
+            //pega a extensao da imagem
+            $extensao = $image->getClientOriginalExtension();
+            //recebe o nome da imagem que foi movida para a pasta de destino
+            $input['anexo'] = $this->moverImagem($image, $extensao);
+        }
+
+        $result = $billPay->update($input);
 
         if($result){
             return redirect('painel/bill-pay')->with('sucesso', 'Conta alterada com sucesso!');
@@ -144,5 +168,48 @@ class BillPayController extends Controller
             return redirect('painel/bill-pay')->with('erro', 'Ocorreu algum erro ao alterar uma Conta, tente novamente mais tarde!');
         }
 
+    }
+
+    public function details($id){
+
+        $billPays = $this->billPay->find($id);
+
+        if(Gate::denies('owner', $billPays))
+            return redirect()->back();
+
+        return view('bill-pays.details', compact('billPays'));
+
+    }
+
+    /*
+    * Metodo responsavel por verificar a extensao, redimencionar e mover a imagem para seu destino
+    */
+    public function moverImagem($image, $extensao){
+
+        if(!in_array($extensao, $this->extensoes)) {
+            return back()->with('erro', 'Erro ao fazer upload de imagem! Formatos aceitos: jpg, jpeg, png e pdf');
+        } else {
+            $filename = 'anexos' . time() . '.' . $extensao;
+            $path = public_path($this->caminhoImg . $filename);
+
+
+            if($extensao == 'pdf'){
+                $image->move(public_path($this->caminhoImg), $filename);
+            }else{
+                Image::make($image->getRealPath())->resize(600,400)->save($path);
+            }
+
+            return $this->caminhoImg . $filename;
+        }
+    }
+    /*
+   * Metodo responsavel por verificar se a imagem existe no diretorio e remove-lá
+   */
+    public function removeImagemDir($imagem){
+        //verifica se a foto antiga existe no diretorio
+        if(File::exists($imagem)) {
+            //remove a foto do diretorio
+            File::delete($imagem);
+        }
     }
 }

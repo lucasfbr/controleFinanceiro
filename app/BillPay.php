@@ -18,6 +18,10 @@ class BillPay extends Model
         $this->attributes['data_launch'] = $objDate->format('Y-m-d');
     }
 
+    public function getDataPayAttribute($value){
+        return  Carbon::parse($value)->format('d/m/Y');
+    }
+
     public function setDataPayAttribute($value){
         $objDate = \DateTime::createFromFormat('d/m/Y', $value);
         $this->attributes['data_pay'] = $objDate->format('Y-m-d');

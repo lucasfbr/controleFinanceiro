@@ -45,7 +45,7 @@
                                 <p class="help-block">Insira seu comprovante aqui.</p>
                             </div>
 
-                            <input type="hidden" name="status" value="pago">
+                            <input type="hidden" name="status" value="paga">
 
                             <button type="submit" class="btn btn-primary">
                                 Pagar

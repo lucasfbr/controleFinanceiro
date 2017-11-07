@@ -69,13 +69,15 @@
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                     |
-                                    <a href="{{url('painel/bill-pay/editStatus/'.$bill->id)}}" title="Pagar" class="btn btn-success">
-                                        <span class="glyphicon glyphicon-usd"></span>
-                                    </a>
-                                    |
-                                    <a href="#" title="Detalhes" class="btn btn-info">
-                                        <span class="glyphicon glyphicon-search"></span>
-                                    </a>
+                                    @if($bill->status == 'pendente')
+                                        <a href="{{url('painel/bill-pay/editStatus/'.$bill->id)}}" title="Pagar" class="btn btn-success">
+                                            <span class="glyphicon glyphicon-usd"></span>
+                                        </a>
+                                    @else
+                                        <a href="{{url('painel/bill-pay/details/'.$bill->id)}}" title="Detalhes" class="btn btn-info">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach
