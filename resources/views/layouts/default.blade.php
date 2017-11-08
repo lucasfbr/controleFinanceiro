@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>LVI Finanças</title>
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/styles.css')}}" rel="stylesheet">
 </head>
 <body>
 
@@ -81,9 +81,8 @@
 
 @yield('container')
 
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="{{asset('js/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/scripts.js')}}"></script>
+<script src="{{asset('js/main.js')}}"></script>
 @yield('google-charts')
 
 </body>

@@ -4,6 +4,7 @@
 
 @section('container')
     <div class="container">
+
         <div class="row">
 
             @if (session('sucesso'))
@@ -24,7 +25,15 @@
 
 
             <div class="row">
-                <h1>Paínel de controle</h1>
+
+                <div id="conteudo">
+
+                    <h1>Paínel de controle</h1>
+
+                    <fin-categorys categorys=" {{$categorys}}"></fin-categorys>
+
+                </div>
+
             </div>
 
         </div>
