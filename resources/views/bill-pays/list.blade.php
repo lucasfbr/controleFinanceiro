@@ -59,7 +59,7 @@
                                 <td>{{$bill->name}}</td>
                                 <td>{{valorBr($bill->value)}}</td>
                                 <td>{{$bill->data_launch}}</td>
-                                <td><span class="text-info">{{$bill->status}}</span></td>
+                                <td>{{$bill->status}}</td>
                                 <td>
                                     <a href="{{url('painel/bill-pay/edit/'.$bill->id)}}" title="Editar" class="btn btn-warning">
                                         <span class="glyphicon glyphicon-pencil"></span>

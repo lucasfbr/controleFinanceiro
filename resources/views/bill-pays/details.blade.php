@@ -40,11 +40,13 @@
                                 <strong>Observações:</strong>
                                 {{$billPays->observacoes}}
                             </p>
+                            @if($billPays->anexo)
                             <p>
                                 <strong>Comprovante:</strong>
                                 <a href="{{asset($billPays->anexo)}}" target="_blank">Comprovante</a>
 
                             </p>
+                            @endif
                         </div>
 
                     </div>

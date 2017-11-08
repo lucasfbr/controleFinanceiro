@@ -18,14 +18,17 @@
                         <form method="post" action="{{url('painel/bill-pay/update/'.$billPays->id)}}" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
-                            <div class="form-group">
-                                <label class="control-label">Status da conta</label>
-                                <select class="form-control" name="status">
-                                    <option value="pendente" {{$billPays->status == 'pendente' ? 'selected' : ''}}>pendente</option>
-                                    <option value="paga" {{$billPays->status == 'paga' ? 'selected' : ''}}>paga</option>
-                                    <option value="atrasada" {{$billPays->status == 'atrasada' ? 'selected' : ''}}>atrasada</option>
-                                </select>
-                            </div>
+
+                            @if($billPays->status == 'paga')
+                                <div class="form-group">
+                                    <label class="control-label">Status da conta</label>
+                                    <select class="form-control" name="status">
+                                        <option value="pendente" {{$billPays->status == 'pendente' ? 'selected' : ''}}>pendente</option>
+                                        <option value="paga" {{$billPays->status == 'paga' ? 'selected' : ''}}>paga</option>
+                                        <option value="atrasada" {{$billPays->status == 'atrasada' ? 'selected' : ''}}>atrasada</option>
+                                    </select>
+                                </div>
+                            @endif
 
                             <div class="form-group{{ $errors->has('category_cost_id') ? ' has-error' : '' }}">
                                 <label class="control-label">Categoria</label>

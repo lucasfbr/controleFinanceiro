@@ -73,3 +73,4 @@ function valorChart($value){;
     return  $valorChart;
 
 }
+
