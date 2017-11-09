@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Auth;
 use App\CategoryCost;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -18,13 +19,19 @@ class CategoryCostsController extends Controller
 
     public function index(){
 
-        $categoryCosts = CategoryCost::query()
-                            ->selectRaw('category_costs.*')
-                            ->where('user_id', Auth()->user()->id)
-                            ->orderBy('name', 'asc')
-                            ->get();
+        return view('category-costs.list');
+    }
 
-        return view('category-costs.list', compact('categoryCosts'));
+    public function listar(){
+
+        $categoryCosts = CategoryCost::query()
+            ->selectRaw('category_costs.*')
+            ->where('user_id', Auth()->user()->id)
+            ->orderBy('name', 'asc')
+            ->get();
+
+        return response()->json($categoryCosts);
+
     }
 
     public function add(){

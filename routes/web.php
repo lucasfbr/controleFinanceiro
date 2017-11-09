@@ -30,6 +30,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'painel'], function (){
     Route::post('/category-costs/update/{id}', ['uses' => 'CategoryCostsController@update']);
     Route::get('/category-costs/delete/{id}', ['uses' => 'CategoryCostsController@delete']);
 
+    Route::get('/api/categorys/listar', ['uses' => 'CategoryCostsController@listar']);
+
+
     Route::get('/bill-receive', ['uses' => 'BillReceiveController@index']);
     Route::get('/bill-receive/add', ['uses' => 'BillReceiveController@add']);
     Route::post('/bill-receive/create', ['uses' => 'BillReceiveController@create']);

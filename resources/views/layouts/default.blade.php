@@ -28,7 +28,7 @@
             <ul class="nav navbar-nav nav">
 
                 @if (!Auth::guest())
-                    <li><a href="{{ url('/painel') }}">Home</a></li>
+                    <li><a href="{{ url('/') }}">Home</a></li>
                     <li><a href="{{ url('/painel/category-costs') }}">Categoria de custos</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -79,7 +79,9 @@
 
 </nav>
 
+<div id="conteudo">
 @yield('container')
+</div>
 
 <script src="{{asset('js/scripts.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
