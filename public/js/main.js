@@ -12287,25 +12287,53 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
     data: function data() {
         return {
-            categorys: '',
-            sortProperty: 'id',
-            sortDirection: 1,
-            busca: ''
+            cep: '',
+            endereco: {},
+            naoLocalizado: false
         };
     },
+    attached: function attached() {
+        jQuery(this.$els.cep).mask('00000-000');
+    },
 
-    methods: {}
+    methods: {
+        buscar: function buscar() {
 
+            self = this;
+
+            self.endereco = {};
+
+            if (/^[0-9]{5}-[0-9]{3}$/.test(this.cep)) {
+
+                jQuery.getJSON('http://viacep.com.br/ws/' + self.cep + '/json/', function (endereco) {
+
+                    if (endereco.erro) {
+
+                        jQuery(self.$els.logradouro).focus();
+                        self.naoLocalizado = true;
+                        return;
+                    } else {
+
+                        self.endereco = endereco;
+                        self.naoLocalizado = false;
+                        jQuery(self.$els.numero).focus();
+                    }
+                });
+            }
+        }
+    },
+    ready: function ready() {}
 };
 if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div _v-34a32722=\"\">\n\n    <div class=\"well\" _v-34a32722=\"\">\n\n\n        <h3 _v-34a32722=\"\">Cadastro de endereço</h3>\n        <br _v-34a32722=\"\">\n        <br _v-34a32722=\"\">\n\n        <div class=\"row\" _v-34a32722=\"\">\n            <div class=\"form-group col-md-5\" _v-34a32722=\"\">\n                <label _v-34a32722=\"\">CEP</label>\n                <input type=\"text\" class=\"form-control\" id=\"cep\" v-model=\"cep\" v-on:keyup=\"buscar\" v-el:cep=\"\" _v-34a32722=\"\">\n\n                <p class=\"text-danger\" v-show=\"naoLocalizado\" _v-34a32722=\"\">O campo cep esta incorreto</p>\n\n            </div>\n        </div>\n\n        <div class=\"row\" _v-34a32722=\"\">\n            <div class=\"form-group col-md-5\" _v-34a32722=\"\">\n                <label _v-34a32722=\"\">Logradouro</label>\n                <input type=\"text\" class=\"form-control\" id=\"logradouro\" v-model=\"endereco.logradouro\" v-el:logradouro=\"\" _v-34a32722=\"\">\n            </div>\n\n            <div class=\"form-group col-md-2\" _v-34a32722=\"\">\n                <label _v-34a32722=\"\">Número</label>\n                <input type=\"text\" class=\"form-control\" id=\"numero\" v-el:numero=\"\" _v-34a32722=\"\">\n            </div>\n\n            <div class=\"form-group col-md-5\" _v-34a32722=\"\">\n                <label _v-34a32722=\"\">Complemento</label>\n                <input type=\"text\" class=\"form-control\" id=\"complemento\" _v-34a32722=\"\">\n            </div>\n        </div>\n\n        <div class=\"row\" _v-34a32722=\"\">\n\n            <div class=\"form-group col-md-5\" _v-34a32722=\"\">\n                <label _v-34a32722=\"\">Bairro</label>\n                <input type=\"text\" class=\"form-control\" id=\"bairro\" v-model=\"endereco.bairro\" _v-34a32722=\"\">\n            </div>\n\n            <div class=\"form-group col-md-5\" _v-34a32722=\"\">\n                <label _v-34a32722=\"\">Cidade</label>\n                <input type=\"text\" class=\"form-control\" id=\"cidade\" v-model=\"endereco.localidade\" _v-34a32722=\"\">\n            </div>\n\n            <div class=\"form-group col-md-2\" _v-34a32722=\"\">\n                <label _v-34a32722=\"\">Estado</label>\n                <input type=\"text\" class=\"form-control\" id=\"estado\" v-model=\"endereco.uf\" _v-34a32722=\"\">\n            </div>\n        </div>\n\n    </div>\n\n</div>\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-4690f29a", module.exports)
+    hotAPI.createRecord("_v-34a32722", module.exports)
   } else {
-    hotAPI.update("_v-4690f29a", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-34a32722", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"vue":5,"vue-hot-reload-api":3}],8:[function(require,module,exports){
@@ -12323,9 +12351,9 @@ var _categorys = require('./components/categorys.vue');
 
 var _categorys2 = _interopRequireDefault(_categorys);
 
-var _cep = require('./components/cep.vue');
+var _enderecos = require('./components/enderecos.vue');
 
-var _cep2 = _interopRequireDefault(_cep);
+var _enderecos2 = _interopRequireDefault(_enderecos);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12335,12 +12363,13 @@ new _vue2.default({
     el: '#conteudo',
 
     components: {
-        FinCategorys: _categorys2.default,
-        CadEndereco: _cep2.default
+        FinEnderecos: _enderecos2.default,
+        FinCategorys: _categorys2.default
+
     }
 
 });
 
-},{"./components/categorys.vue":6,"./components/cep.vue":7,"vue":5,"vue-resource":4}]},{},[8]);
+},{"./components/categorys.vue":6,"./components/enderecos.vue":7,"vue":5,"vue-resource":4}]},{},[8]);
 
 //# sourceMappingURL=main.js.map

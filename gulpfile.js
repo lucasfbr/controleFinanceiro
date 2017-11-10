@@ -21,6 +21,7 @@ elixir(function (mix) {
 
     mix.scripts([
         '../../../node_modules/jquery/dist/jquery.js',
+        '../../../node_modules/jquery-mask-plugin/dist/jquery.mask.js',
         '../../../node_modules/bootstrap/dist/js/bootstrap.js'
     ], 'public/js/scripts.js');
 

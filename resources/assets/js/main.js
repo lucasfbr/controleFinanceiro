@@ -6,14 +6,15 @@ Vue.use(VueResource);
 
 import FinCategorys from './components/categorys.vue';
 
-import CadEndereco from './components/cep.vue';
+import FinEnderecos from './components/enderecos.vue';
 
 new Vue({
     el:'#conteudo',
 
     components:{
+        FinEnderecos,
         FinCategorys,
-        CadEndereco
+
     },
 
 });

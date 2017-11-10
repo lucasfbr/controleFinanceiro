@@ -27,8 +27,6 @@
 
                         <h1>Paínel de controle</h1>
 
-                        <cad-endereco></cad-endereco>
-
                 </div>
         </div>
     </div>
