@@ -18,15 +18,12 @@
                 <li><a href="{{ url('/painel') }}">Home</a></li>
                 <li><a href="{{ url('/painel/category-costs') }}">Categoria de custos</a></li>
 
-                <ul id="dropdown1" class="dropdown-content">
+                <ul id="contas" class="dropdown-content">
                     <li><a href="{{ url('/painel/bill-receive') }}">Contas a receber</a></li>
                     <li class="divider"></li>
                     <li><a href="{{ url('/painel/bill-pay') }}">Contas a pagar</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#!">three</a></li>
                 </ul>
-
-                <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a class="dropdown-button" href="#!" data-activates="contas">Contas<i class="material-icons right">arrow_drop_down</i></a></li>
 
                 <li><a href="{{ url('/painel/statements') }}">Extratos</a></li>
                 <li><a href="{{ url('/painel/charts') }}">Gráfico de Gastos</a></li>
@@ -41,9 +38,6 @@
 
                 @else
 
-                    <li><a class="dropdown-button" href="#!" data-activates="dropdown3">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
-
-                    <ul id="dropdown3" class="dropdown-content">
                         <li>
                             <a href="{{ url('/logout') }}"
                                onclick="event.preventDefault();
@@ -55,7 +49,7 @@
                                 {{ csrf_field() }}
                             </form>
                         </li>
-                    </ul>
+
 
                 @endif
 

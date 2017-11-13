@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="container">
+
     <div class="row">
-
-        <div class="col s8 offset-s2">
-
+        <div id="login" class="col s8 offset-s2">
+                    <h1>Login</h1>
                     <form role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
 
@@ -28,7 +28,7 @@
                             <div class="row">
                                 <div class="input-field">
                                 <label for="password">Password</label>
-                                <input placeholder="password" id="password" name="password" type="text" class="validate">
+                                <input id="password" name="password" type="text" class="validate">
 
                                 @if ($errors->has('password'))
                                     <span class="red-text">
