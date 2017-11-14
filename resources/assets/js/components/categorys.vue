@@ -44,16 +44,28 @@
 
     <div>
 
-        <div class="well">
-            <input type="text" class="form-control" placeholder="Filtrar lista abaixo" v-model="busca">
+
+        <div class="input-field col s4">
+            <select>
+                <option value="" disabled selected>Ações</option>
+                <option value="1">Editar</option>
+                <option value="2">Excluir</option>
+            </select>
         </div>
 
-        <table class="table table-bordered">
+        <div class="input-field col s4">
+            <input type="text" class="validate" id="busca" name="busca"  v-model="busca">
+            <i class="material-icons prefix">search</i>
+            <label for="busca">Filtrar</label>
+
+        </div>
+
+
+        <table class="bordered">
             <thead>
             <tr>
-                <th style="width:10px">#</th>
+                <th>#</th>
                 <th><a href="#" @click="sort($event, 'name')">Nome</a></th>
-                <th>Ação</th>
             </tr>
             </thead>
             <tbody>
@@ -61,15 +73,6 @@
             <tr v-for="cat in categorys | filterBy busca | orderBy sortProperty sortDirection">
                 <td>{{cat.id}}</td>
                 <td>{{cat.name}}</td>
-                <td>
-                    <a href="/painel/category-costs/edit/{{cat.id}}" title="Editar">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </a>
-                    |
-                    <a href="/painel/category-costs/delete/{{cat.id}}" title="Remover">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </a>
-                </td>
             </tr>
 
             </tbody>

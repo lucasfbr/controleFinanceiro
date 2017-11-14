@@ -11,6 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="{{asset('css/styles.css')}}" rel="stylesheet">
 
     <!-- Scripts -->
@@ -19,6 +20,8 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+
+
 </head>
 <body class="green lighten-5">
     <div id="app">

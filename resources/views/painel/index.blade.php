@@ -3,31 +3,48 @@
 @section('title', 'Painel de controle')
 
 @section('container')
+
     <div class="container">
-        <div class="row">
-
-                @if (session('sucesso'))
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                    aria-hidden="true">&times;</span></button>
-                        {{ session('sucesso') }}
+        <div class="row cards-default">
+            <div class="col s4">
+                <div class="card white">
+                    <div class="card-content grey-text">
+                        <span>A receber hoje</span>
+                        <h4 class="light-green-text">R$ 1,200.00</h4>
                     </div>
-                    <br/>
-                @elseif(session('erro'))
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                    aria-hidden="true">&times;</span></button>
-                        {{ session('erro') }}
+                    <div class="card-action grey-text">
+                        Restante no mês
                     </div>
-                    <br/>
-                @endif
-
-
-                <div class="row">
-
-                        <h1>Paínel de controle</h1>
-
                 </div>
+            </div>
+            <div class="col s4">
+                <div class="card white">
+                    <div class="card-content grey-text">
+                        <span>A pagar hoje</span>
+                        <h4 class="red-text">R$ 1,200.00</h4>
+                    </div>
+                    <div class="card-action grey-text">
+                        Restante no mês
+                    </div>
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="card white">
+                    <div class="card-content grey-text">
+                        <span>Contas bancárias</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s8">
+                <div class="card white">
+                    <div class="card-content grey-text">
+                        <span>Fluxo de caixa</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
+
 @endsection

@@ -14,3 +14,22 @@ nav .brand-logo{
     transition: opacity 1s;
     -webkit-transition: opacity 1s;
 }
+
+.titulo-login{
+    padding: 10px 0;
+}
+
+.form-login{
+    margin-top: 40px;
+}
+
+.card-principal-categoria{
+    margin-top: 40px;
+}
+
+/*classe utilizada em todos os cards que não exibirão imagem*/
+.card-top-default{
+    padding: 20px 10px;
+
+}
+

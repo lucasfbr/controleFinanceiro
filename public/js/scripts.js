@@ -20873,4 +20873,8 @@ if (Vel) {
   };
 })(jQuery);
 
+$(document).ready(function() {
+    $('select').material_select();
+});
+
 //# sourceMappingURL=scripts.js.map
