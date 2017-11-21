@@ -31,7 +31,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'painel'], function (){
     Route::get('/category-costs/delete/{id}', ['uses' => 'CategoryCostsController@delete']);
 
     Route::get('/api/categorys/listar', ['uses' => 'CategoryCostsController@listar']);
-
+    Route::post('/api/categorys/update', ['uses' => 'CategoryCostsController@apiUpdate']);
 
     Route::get('/bill-receive', ['uses' => 'BillReceiveController@index']);
     Route::get('/bill-receive/add', ['uses' => 'BillReceiveController@add']);

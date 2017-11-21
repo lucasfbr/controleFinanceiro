@@ -88,6 +88,25 @@ class CategoryCostsController extends Controller
 
     }
 
+    public function apiUpdate(Request $request){
+
+        $category = $this->categoryCost->find($request->input('id'));
+
+        if(Gate::denies('owner', $category))
+            return redirect()->back();
+
+        $result = $category->update($request->all());
+
+        if($result){
+            return response()->json(true);
+        }else{
+            return response()->json(false);
+        }
+
+        //return response()->json($request->input('id'));
+
+    }
+
     public function delete($id){
 
         $category = $this->categoryCost->find($id);
@@ -96,9 +115,11 @@ class CategoryCostsController extends Controller
             return redirect()->back();
 
         if($category->delete()){
-            return redirect('painel/category-costs')->with('sucesso', 'Categoria deletada com sucesso!');
+            //return redirect('painel/category-costs')->with('sucesso', 'Categoria deletada com sucesso!');
+            return response()->json(true);
         }else{
-            return redirect('painel/category-costs')->with('erro', 'Ocorreu algum erro ao deletar uma categoria, tente novamente mais tarde!');
+            //return redirect('painel/category-costs')->with('erro', 'Ocorreu algum erro ao deletar uma categoria, tente novamente mais tarde!');
+            return response()->json(false);
         }
 
     }

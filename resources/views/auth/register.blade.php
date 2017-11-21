@@ -2,11 +2,6 @@
 
 @section('content')
 
-
-
-
-
-
     <div class="container">
         <div class="row">
             <div class="col s12 m6 offset-m3 form-login">
@@ -14,7 +9,7 @@
                     {{ csrf_field() }}
                     <div class="card">
                         <div class="card-image green darken-2 text-center">
-                            <h4 class="center-align white-text titulo-login">Registro de novo usuário</h4>
+                            <h5 class="center-align white-text titulo-login">Registro de novo usuário</h5>
                         </div>
                         <div class="card-content">
 
@@ -74,7 +69,7 @@
                         </div>
                         <div class="card-action green darken-2">
                             <div class="center-align">
-                                <button type="submit" class="btn waves-effect waves-light">Registrar</button>
+                                <button type="submit" class="btn green darken-1">Registrar</button>
                             </div>
                         </div>
                     </div>

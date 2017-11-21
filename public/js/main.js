@@ -12232,19 +12232,44 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = {
 
-    //props: ['categorys'],
-
+    /* Variaveis utilizadas no projeto
+     *
+      * categorys : armazena todas as categorias vindas do banco de dados
+      * sortProperty : propriedade inicial para ordenação
+      * sortDirection : direção ascendente ou descendente da ordenação
+      * busca: armazena os caracteres para realizar a busca
+      * category: armazena os dados de uma categoria especifica
+      * erro: armazena o status e a mensagem, por default o status = false e msg = ''
+     */
     data: function data() {
         return {
             categorys: '',
             sortProperty: 'id',
             sortDirection: 1,
-            busca: ''
+            busca: '',
+            category: {
+                id: '',
+                name: ''
+            },
+            erro: {
+                status: false,
+                msg: ''
+            }
+
         };
     },
 
 
     methods: {
+        //Lista todas as categorias, utilizado no inicio e quando precisamos de um refresh na página
+        list: function list() {
+
+            this.$http.get('api/categorys/listar').then(function (response) {
+                this.categorys = response.body;
+            });
+        },
+
+        //Faz a ordenação das categorias
         sort: function sort(e, property) {
 
             e.preventDefault();
@@ -12256,6 +12281,84 @@ exports.default = {
             } else {
                 this.sortDirection = 1;
             }
+        },
+
+        //Exibem os dados a serem editados no formulário
+        edit: function edit(id, name) {
+
+            //limpa o id da categoria
+            this.category.id = '';
+            //limpa o name da categoria
+            this.category.name = '';
+
+            if (id != '' && name != '') {
+                this.category.id = id;
+                this.category.name = name;
+            }
+        },
+
+        //Atualiza os dados no banco de dados
+        update: function update() {
+
+            //Armazena o "this" na variavel self, assim não teremos conflitos com o this do vue.resource
+            self = this;
+            //Limpa o status
+            self.erro.status = '';
+            //Limpa a msg
+            self.erro.msg = '';
+
+            //verifica se o name da categoria não esta vazio
+            if (self.category.name != '') {
+
+                //Faz um envio post via AJAX, passando os dados recebidos e os headers, necessários para o laravel aceitar transações via post
+                //O csrf-token referido no header, esta localizado nos metas do template.
+                this.$http.post('api/categorys/update', self.category, { headers: { 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content') } }).then(function (response) {
+
+                    //verifica se o retorno é true
+                    if (response.body) {
+
+                        //fecha o modal
+                        jQuery('#editar').modal('close');
+                        //atualiza a lista de categorias
+                        self.list();
+                    } else {
+
+                        //seta o status para true e define a msg de erro
+                        self.erro.status = true;
+                        self.erro.msg = 'O campo não foi atualizado, tente novamente mais tarde';
+                    }
+                }, function (response) {
+
+                    //seta o status para true e define a msg de erro
+                    self.erro.status = true;
+                    self.erro.msg = 'Erro 404, informe a equipe de TI';
+                });
+            } else {
+
+                //seta o status para true e define a msg de erro
+                self.erro.status = true;
+                self.erro.msg = 'O campo nome deve ser preenchido!';
+            }
+        },
+        deletar: function deletar(id, name) {
+
+            self = this;
+
+            if (confirm('Você realmente deseja excluir este registro?')) {
+
+                this.$http.get('category-costs/delete/' + id).then(function (response) {
+
+                    if (response.body) {
+
+                        this.list();
+
+                        Materialize.toast('A categoria ' + name + ' foi excluída com sucesso!', 3000, 'rounded');
+                    } else {
+
+                        console.log('Ocorreu algum erro');
+                    }
+                });
+            } else {}
         }
     },
 
@@ -12267,7 +12370,7 @@ exports.default = {
     }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div _v-6551df4c=\"\">\n\n\n    <div class=\"input-field col s4\" _v-6551df4c=\"\">\n        <select _v-6551df4c=\"\">\n            <option value=\"\" disabled=\"\" selected=\"\" _v-6551df4c=\"\">Ações</option>\n            <option value=\"1\" _v-6551df4c=\"\">Editar</option>\n            <option value=\"2\" _v-6551df4c=\"\">Excluir</option>\n        </select>\n    </div>\n\n    <div class=\"input-field col s4\" _v-6551df4c=\"\">\n        <input type=\"text\" class=\"validate\" id=\"busca\" name=\"busca\" v-model=\"busca\" _v-6551df4c=\"\">\n        <i class=\"material-icons prefix\" _v-6551df4c=\"\">search</i>\n        <label for=\"busca\" _v-6551df4c=\"\">Filtrar</label>\n\n    </div>\n\n\n    <table class=\"bordered\" _v-6551df4c=\"\">\n        <thead _v-6551df4c=\"\">\n        <tr _v-6551df4c=\"\">\n            <th _v-6551df4c=\"\">#</th>\n            <th _v-6551df4c=\"\"><a href=\"#\" @click=\"sort($event, 'name')\" _v-6551df4c=\"\">Nome</a></th>\n        </tr>\n        </thead>\n        <tbody _v-6551df4c=\"\">\n\n        <tr v-for=\"cat in categorys | filterBy busca | orderBy sortProperty sortDirection\" _v-6551df4c=\"\">\n            <td _v-6551df4c=\"\">{{cat.id}}</td>\n            <td _v-6551df4c=\"\">{{cat.name}}</td>\n        </tr>\n\n        </tbody>\n    </table>\n</div>\n\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div _v-6551df4c=\"\">\n\n    <div class=\"card-image green lighten-4 green-text\" _v-6551df4c=\"\">\n\n        <h5 class=\"card-top-default\" _v-6551df4c=\"\">\n            Categorias de custo\n        </h5>\n\n        <a href=\"#\" class=\"btn-floating btn-large halfway-fab waves-effect waves-light green\" @click=\"add\" _v-6551df4c=\"\">\n            <i class=\"material-icons\" _v-6551df4c=\"\">add</i>\n        </a>\n\n    </div>\n    <div class=\"card-content\" _v-6551df4c=\"\">\n\n    <div class=\"input-field col s6\" _v-6551df4c=\"\">\n        <input type=\"text\" class=\"validate\" id=\"busca\" name=\"busca\" v-model=\"busca\" _v-6551df4c=\"\">\n        <i class=\"material-icons prefix\" _v-6551df4c=\"\">search</i>\n        <label for=\"busca\" _v-6551df4c=\"\">Filtrar</label>\n    </div>\n\n\n        <table class=\"bordered\" _v-6551df4c=\"\">\n            <thead _v-6551df4c=\"\">\n            <tr _v-6551df4c=\"\">\n                <th _v-6551df4c=\"\">#</th>\n                <th style=\"width: 80%\" _v-6551df4c=\"\"><a href=\"#\" @click=\"sort($event, 'name')\" _v-6551df4c=\"\">Nome</a></th>\n                <th _v-6551df4c=\"\"></th>\n            </tr>\n            </thead>\n            <tbody _v-6551df4c=\"\">\n\n            <tr v-for=\"cat in categorys | filterBy busca | orderBy sortProperty sortDirection\" _v-6551df4c=\"\">\n                <td _v-6551df4c=\"\">{{cat.id}}</td>\n                <td style=\"width: 80%\" _v-6551df4c=\"\">{{cat.name}}</td>\n                <td _v-6551df4c=\"\">\n                    <a href=\"#editar\" class=\"btn-floating btn-sm waves-effect waves-light orange modal-trigger\" @click=\"edit(cat.id,cat.name)\" _v-6551df4c=\"\"><i class=\"material-icons\" _v-6551df4c=\"\">mode_edit</i></a>\n                    <a href=\"#deletar\" class=\"btn-floating btn-sm waves-effect waves-light red modal-trigger\" @click=\"deletar(cat.id, cat.name)\" _v-6551df4c=\"\"><i class=\"material-icons\" _v-6551df4c=\"\">delete</i></a>\n                </td>\n            </tr>\n\n            </tbody>\n\n        </table>\n\n    </div>\n\n    <div id=\"modalEditar\" _v-6551df4c=\"\">\n        <div id=\"editar\" class=\"modal\" _v-6551df4c=\"\">\n            <div class=\"modal-content\" _v-6551df4c=\"\">\n                    <form class=\"login-form\" role=\"form\" method=\"POST\" action=\"\" _v-6551df4c=\"\">\n                        <div class=\"card\" _v-6551df4c=\"\">\n                            <div class=\"card-image green darken-2 white-text text-center\" _v-6551df4c=\"\">\n                                <h4 class=\"center-align titulo-login\" _v-6551df4c=\"\">Editar categoria de custo</h4>\n                            </div>\n                            <div class=\"card-content\" _v-6551df4c=\"\">\n\n                                <div class=\"input-field\" _v-6551df4c=\"\">\n                                    <input class=\"validate\" id=\"category_cost\" type=\"text\" name=\"category_cost\" value=\"{{category.name}}\" v-model=\"category.name\" placeholder=\"Categoria de custo\" _v-6551df4c=\"\">\n\n\n                                    <span class=\"red-text\" _v-6551df4c=\"\">\n                                        <strong v-show=\"erro.status\" transition=\"expand\" _v-6551df4c=\"\">{{erro.msg}}</strong>\n                                    </span>\n\n                                </div>\n\n                            </div>\n                        </div>\n                    </form>\n\n            </div>\n            <div class=\"modal-footer green darken-2\" _v-6551df4c=\"\">\n                <a href=\"#!\" class=\"modal-action modal-close waves-effect waves-green btn-flat btn white lighten-1 green-text\" _v-6551df4c=\"\">Fechar</a>\n                <a href=\"#!\" class=\"waves-effect waves-green btn-flat btn white darken-1 green-text\" @click=\"update\" _v-6551df4c=\"\">Editar</a>\n            </div>\n        </div>\n    </div>\n\n\n</div>\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)

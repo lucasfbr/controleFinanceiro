@@ -10,7 +10,7 @@
                     {{ csrf_field() }}
                     <div class="card">
                         <div class="card-image green darken-2 text-center">
-                            <h4 class="center-align white-text titulo-login">Tela de Login</h4>
+                            <h5 class="center-align white-text titulo-login">Tela de Login</h5>
                         </div>
                         <div class="card-content">
                             <div class="input-field">
@@ -53,17 +53,17 @@
                         <div class="card-action green darken-2">
                             <div class="center-align">
 
-                                <button type="submit" class="btn waves-effect waves-light"><i class="material-icons left">vpn_key</i> Acessar</button>
+                                <button type="submit" class="btn green darken-1"><i class="material-icons left">vpn_key</i> Acessar</button>
                             </div>
                         </div>
                     </div>
                 </form>
                 <div class="row">
                     <div class="col s4">
-                        <a href="{{ url('/register') }}" class="btn waves-effect waves-light">Registrar</a>
+                        <a href="{{ url('/register') }}" class="btn green darken-1">Registrar</a>
                     </div>
                     <div class="col s8 right-align">
-                        <a href="{{ url('/password/reset') }}" class="btn waves-effect waves-light">Esqueci a senha</a>
+                        <a href="{{ url('/password/reset') }}" class="btn green darken-1">Esqueci a senha</a>
                     </div>
                 </div>
             </div>
