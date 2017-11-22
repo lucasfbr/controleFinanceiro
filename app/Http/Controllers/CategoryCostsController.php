@@ -56,6 +56,24 @@ class CategoryCostsController extends Controller
 
     }
 
+    public function apiAdd(Request $request){
+
+        $categoryCosts = new CategoryCost();
+
+        $categoryCosts->name = $request->input('name');
+        $categoryCosts->user_id = Auth()->user()->id;
+
+        /*$result = $this->categoryCost->create($request->all());*/
+
+        if($categoryCosts->save()){
+            return response()->json(true);
+        }else{
+            return response()->json(false);
+        }
+
+    }
+
+
     public function edit($id){
 
         $category = $this->categoryCost->find($id);

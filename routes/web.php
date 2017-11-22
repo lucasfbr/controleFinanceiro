@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'painel'], function (){
 
     Route::get('/api/categorys/listar', ['uses' => 'CategoryCostsController@listar']);
     Route::post('/api/categorys/update', ['uses' => 'CategoryCostsController@apiUpdate']);
+    Route::post('/api/categorys/add', ['uses' => 'CategoryCostsController@apiAdd']);
 
     Route::get('/bill-receive', ['uses' => 'BillReceiveController@index']);
     Route::get('/bill-receive/add', ['uses' => 'BillReceiveController@add']);

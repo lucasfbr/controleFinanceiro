@@ -9431,6 +9431,14 @@ nav .brand-logo{
     margin: 0;
 }
 
+#modalAdd .modal .modal-content{
+    padding: 0;
+}
+
+#modalAdd .card{
+    margin: 0;
+}
+
 /* always present */
 .expand-transition {
     transition: all .3s ease;

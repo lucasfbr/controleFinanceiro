@@ -12244,7 +12244,7 @@ exports.default = {
     data: function data() {
         return {
             categorys: '',
-            sortProperty: 'id',
+            sortProperty: 'name',
             sortDirection: 1,
             busca: '',
             category: {
@@ -12268,6 +12268,11 @@ exports.default = {
                 this.categorys = response.body;
             });
         },
+        limpar: function limpar() {
+
+            this.category.id = '';
+            this.category.name = '';
+        },
 
         //Faz a ordenação das categorias
         sort: function sort(e, property) {
@@ -12284,16 +12289,18 @@ exports.default = {
         },
 
         //Exibem os dados a serem editados no formulário
-        edit: function edit(id, name) {
+        edit: function edit(e, cat) {
+
+            e.preventDefault();
 
             //limpa o id da categoria
             this.category.id = '';
             //limpa o name da categoria
             this.category.name = '';
 
-            if (id != '' && name != '') {
-                this.category.id = id;
-                this.category.name = name;
+            if (cat.id != '' && cat.name != '') {
+                this.category.id = cat.id;
+                this.category.name = cat.name;
             }
         },
 
@@ -12302,9 +12309,9 @@ exports.default = {
 
             //Armazena o "this" na variavel self, assim não teremos conflitos com o this do vue.resource
             self = this;
-            //Limpa o status
+            //Limpa o status do erro
             self.erro.status = '';
-            //Limpa a msg
+            //Limpa a msg do erro
             self.erro.msg = '';
 
             //verifica se o name da categoria não esta vazio
@@ -12321,17 +12328,19 @@ exports.default = {
                         jQuery('#editar').modal('close');
                         //atualiza a lista de categorias
                         self.list();
+                        //limpar objeto category
+                        self.limpar();
                     } else {
 
                         //seta o status para true e define a msg de erro
                         self.erro.status = true;
-                        self.erro.msg = 'O campo não foi atualizado, tente novamente mais tarde';
+                        self.erro.msg = 'A categoria não pode ser atualizada, tente novamente mais tarde!';
                     }
                 }, function (response) {
 
                     //seta o status para true e define a msg de erro
                     self.erro.status = true;
-                    self.erro.msg = 'Erro 404, informe a equipe de TI';
+                    self.erro.msg = 'Erro 404, informe a equipe de TI!';
                 });
             } else {
 
@@ -12340,7 +12349,53 @@ exports.default = {
                 self.erro.msg = 'O campo nome deve ser preenchido!';
             }
         },
-        deletar: function deletar(id, name) {
+        create: function create(e) {
+
+            e.preventDefault();
+
+            self = this;
+            //Limpa o status do erro
+            self.erro.status = '';
+            //Limpa a msg do erro
+            self.erro.msg = '';
+
+            if (self.category.name != '') {
+
+                //console.log(self.category);
+
+                this.$http.post('api/categorys/add', self.category, { headers: { 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content') } }).then(function (response) {
+
+                    //console.log(response.body)
+
+                    if (response.body) {
+
+                        //fecha o modal
+                        jQuery('#add').modal('close');
+                        //atualiza a lista de categorias
+                        self.list();
+                        //limpar objeto category
+                        self.limpar();
+                    } else {
+
+                        self.erro.status = true;
+                        self.erro.msg = 'A categoria não pode ser criada, tente novamente mais tarde!';
+                    }
+                }, function (response) {
+
+                    self.erro.status = true;
+                    self.erro.msg = 'Erro ' + response.status + ', informe a equipe de TI!';
+
+                    //console.log('nao chegou')
+                });
+            } else {
+
+                self.erro.status = true;
+                self.erro.msg = 'O campo obrigatório!';
+            }
+        },
+        deletar: function deletar(e, id) {
+
+            e.preventDefault();
 
             self = this;
 
@@ -12352,16 +12407,18 @@ exports.default = {
 
                         this.list();
 
-                        Materialize.toast('A categoria ' + name + ' foi excluída com sucesso!', 3000, 'rounded');
+                        Materialize.toast('Categoria excluída com sucesso!', 5000, 'rounded');
                     } else {
 
                         console.log('Ocorreu algum erro');
                     }
+                }, function (response) {
+
+                    Materialize.toast('Erro ' + response.status + ' ao deletar a categoria, informe seu gerente de TI', 5000, 'rounded');
                 });
-            } else {}
+            }
         }
     },
-
     ready: function ready() {
 
         this.$http.get('api/categorys/listar').then(function (response) {
@@ -12370,7 +12427,7 @@ exports.default = {
     }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div _v-6551df4c=\"\">\n\n    <div class=\"card-image green lighten-4 green-text\" _v-6551df4c=\"\">\n\n        <h5 class=\"card-top-default\" _v-6551df4c=\"\">\n            Categorias de custo\n        </h5>\n\n        <a href=\"#\" class=\"btn-floating btn-large halfway-fab waves-effect waves-light green\" @click=\"add\" _v-6551df4c=\"\">\n            <i class=\"material-icons\" _v-6551df4c=\"\">add</i>\n        </a>\n\n    </div>\n    <div class=\"card-content\" _v-6551df4c=\"\">\n\n    <div class=\"input-field col s6\" _v-6551df4c=\"\">\n        <input type=\"text\" class=\"validate\" id=\"busca\" name=\"busca\" v-model=\"busca\" _v-6551df4c=\"\">\n        <i class=\"material-icons prefix\" _v-6551df4c=\"\">search</i>\n        <label for=\"busca\" _v-6551df4c=\"\">Filtrar</label>\n    </div>\n\n\n        <table class=\"bordered\" _v-6551df4c=\"\">\n            <thead _v-6551df4c=\"\">\n            <tr _v-6551df4c=\"\">\n                <th _v-6551df4c=\"\">#</th>\n                <th style=\"width: 80%\" _v-6551df4c=\"\"><a href=\"#\" @click=\"sort($event, 'name')\" _v-6551df4c=\"\">Nome</a></th>\n                <th _v-6551df4c=\"\"></th>\n            </tr>\n            </thead>\n            <tbody _v-6551df4c=\"\">\n\n            <tr v-for=\"cat in categorys | filterBy busca | orderBy sortProperty sortDirection\" _v-6551df4c=\"\">\n                <td _v-6551df4c=\"\">{{cat.id}}</td>\n                <td style=\"width: 80%\" _v-6551df4c=\"\">{{cat.name}}</td>\n                <td _v-6551df4c=\"\">\n                    <a href=\"#editar\" class=\"btn-floating btn-sm waves-effect waves-light orange modal-trigger\" @click=\"edit(cat.id,cat.name)\" _v-6551df4c=\"\"><i class=\"material-icons\" _v-6551df4c=\"\">mode_edit</i></a>\n                    <a href=\"#deletar\" class=\"btn-floating btn-sm waves-effect waves-light red modal-trigger\" @click=\"deletar(cat.id, cat.name)\" _v-6551df4c=\"\"><i class=\"material-icons\" _v-6551df4c=\"\">delete</i></a>\n                </td>\n            </tr>\n\n            </tbody>\n\n        </table>\n\n    </div>\n\n    <div id=\"modalEditar\" _v-6551df4c=\"\">\n        <div id=\"editar\" class=\"modal\" _v-6551df4c=\"\">\n            <div class=\"modal-content\" _v-6551df4c=\"\">\n                    <form class=\"login-form\" role=\"form\" method=\"POST\" action=\"\" _v-6551df4c=\"\">\n                        <div class=\"card\" _v-6551df4c=\"\">\n                            <div class=\"card-image green darken-2 white-text text-center\" _v-6551df4c=\"\">\n                                <h4 class=\"center-align titulo-login\" _v-6551df4c=\"\">Editar categoria de custo</h4>\n                            </div>\n                            <div class=\"card-content\" _v-6551df4c=\"\">\n\n                                <div class=\"input-field\" _v-6551df4c=\"\">\n                                    <input class=\"validate\" id=\"category_cost\" type=\"text\" name=\"category_cost\" value=\"{{category.name}}\" v-model=\"category.name\" placeholder=\"Categoria de custo\" _v-6551df4c=\"\">\n\n\n                                    <span class=\"red-text\" _v-6551df4c=\"\">\n                                        <strong v-show=\"erro.status\" transition=\"expand\" _v-6551df4c=\"\">{{erro.msg}}</strong>\n                                    </span>\n\n                                </div>\n\n                            </div>\n                        </div>\n                    </form>\n\n            </div>\n            <div class=\"modal-footer green darken-2\" _v-6551df4c=\"\">\n                <a href=\"#!\" class=\"modal-action modal-close waves-effect waves-green btn-flat btn white lighten-1 green-text\" _v-6551df4c=\"\">Fechar</a>\n                <a href=\"#!\" class=\"waves-effect waves-green btn-flat btn white darken-1 green-text\" @click=\"update\" _v-6551df4c=\"\">Editar</a>\n            </div>\n        </div>\n    </div>\n\n\n</div>\n\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div _v-6551df4c=\"\">\n\n    <div class=\"card-image green lighten-4 green-text\" _v-6551df4c=\"\">\n\n        <h5 class=\"card-top-default\" _v-6551df4c=\"\">\n            Categorias de custo\n        </h5>\n\n        <a href=\"#add\" class=\"btn-floating btn-large halfway-fab waves-effect waves-light green modal-trigger\" _v-6551df4c=\"\">\n            <i class=\"material-icons\" @click=\"limpar\" _v-6551df4c=\"\">add</i>\n        </a>\n\n    </div>\n    <div class=\"card-content\" _v-6551df4c=\"\">\n\n    <div class=\"input-field col s6\" _v-6551df4c=\"\">\n        <input type=\"text\" class=\"validate\" id=\"busca\" name=\"busca\" v-model=\"busca\" _v-6551df4c=\"\">\n        <i class=\"material-icons prefix\" _v-6551df4c=\"\">search</i>\n        <label for=\"busca\" _v-6551df4c=\"\">Filtrar</label>\n    </div>\n\n\n        <table class=\"bordered\" _v-6551df4c=\"\">\n            <thead _v-6551df4c=\"\">\n            <tr _v-6551df4c=\"\">\n                <th _v-6551df4c=\"\">#</th>\n                <th style=\"width: 80%\" _v-6551df4c=\"\"><a href=\"#\" @click=\"sort($event, 'name')\" _v-6551df4c=\"\">Nome</a></th>\n                <th _v-6551df4c=\"\"></th>\n            </tr>\n            </thead>\n            <tbody _v-6551df4c=\"\">\n\n            <tr v-for=\"cat in categorys | filterBy busca | orderBy sortProperty sortDirection\" _v-6551df4c=\"\">\n                <td _v-6551df4c=\"\">{{cat.id}}</td>\n                <td style=\"width: 80%\" _v-6551df4c=\"\">{{cat.name}}</td>\n                <td _v-6551df4c=\"\">\n                    <a href=\"#editar\" class=\"btn-floating btn-sm waves-effect waves-light orange modal-trigger\" @click=\"edit($event, cat)\" _v-6551df4c=\"\"><i class=\"material-icons\" _v-6551df4c=\"\">mode_edit</i></a>\n                    <a href=\"#deletar\" class=\"btn-floating btn-sm waves-effect waves-light red modal-trigger\" @click=\"deletar($event,cat.id)\" _v-6551df4c=\"\"><i class=\"material-icons\" _v-6551df4c=\"\">delete</i></a>\n                </td>\n            </tr>\n\n            </tbody>\n\n        </table>\n\n    </div>\n\n    <div id=\"modalEditar\" _v-6551df4c=\"\">\n        <div id=\"editar\" class=\"modal\" _v-6551df4c=\"\">\n            <div class=\"modal-content\" _v-6551df4c=\"\">\n                    <form class=\"login-form\" role=\"form\" method=\"POST\" action=\"\" _v-6551df4c=\"\">\n                        <div class=\"card\" _v-6551df4c=\"\">\n                            <div class=\"card-image green darken-2 white-text text-center\" _v-6551df4c=\"\">\n                                <h4 class=\"center-align titulo-login\" _v-6551df4c=\"\">Editar categoria de custo</h4>\n                            </div>\n                            <div class=\"card-content\" _v-6551df4c=\"\">\n\n                                <div class=\"input-field\" _v-6551df4c=\"\">\n                                    <input class=\"validate\" id=\"edit_category_cost\" type=\"text\" name=\"edit_category_cost\" value=\"{{category.name}}\" v-model=\"category.name\" placeholder=\"Categoria de custo\" _v-6551df4c=\"\">\n\n\n                                    <span class=\"red-text\" _v-6551df4c=\"\">\n                                        <strong v-show=\"erro.status\" transition=\"expand\" _v-6551df4c=\"\">{{erro.msg}}</strong>\n                                    </span>\n\n                                </div>\n\n                            </div>\n                        </div>\n                    </form>\n\n            </div>\n            <div class=\"modal-footer green darken-2\" _v-6551df4c=\"\">\n                <a href=\"#!\" class=\"modal-action modal-close waves-effect waves-green btn-flat btn white lighten-1 green-text\" _v-6551df4c=\"\">Fechar</a>\n                <a href=\"#!\" class=\"modal-action modal-close waves-effect waves-green btn-flat btn white darken-1 green-text\" @click=\"update\" _v-6551df4c=\"\">Editar</a>\n            </div>\n        </div>\n    </div>\n\n    <div id=\"modalAdd\" _v-6551df4c=\"\">\n        <div id=\"add\" class=\"modal\" _v-6551df4c=\"\">\n            <div class=\"modal-content\" _v-6551df4c=\"\">\n                <form class=\"login-form\" role=\"form\" method=\"POST\" action=\"\" _v-6551df4c=\"\">\n                    <div class=\"card\" _v-6551df4c=\"\">\n                        <div class=\"card-image green darken-2 white-text text-center\" _v-6551df4c=\"\">\n                            <h4 class=\"center-align titulo-login\" _v-6551df4c=\"\">Adicione uma categoria</h4>\n                        </div>\n                        <div class=\"card-content\" _v-6551df4c=\"\">\n\n                            <div class=\"input-field\" _v-6551df4c=\"\">\n                                <input class=\"validate\" id=\"add_category_cost\" type=\"text\" name=\"add_category_cost\" v-model=\"category.name\" _v-6551df4c=\"\">\n                                <label for=\"add_category_cost\" _v-6551df4c=\"\">Categoria de custo</label>\n\n                                <span class=\"red-text\" _v-6551df4c=\"\">\n                                        <strong v-show=\"erro.status\" transition=\"expand\" _v-6551df4c=\"\">{{erro.msg}}</strong>\n                                </span>\n\n                            </div>\n\n                        </div>\n                    </div>\n                </form>\n\n            </div>\n            <div class=\"modal-footer green darken-2\" _v-6551df4c=\"\">\n                <a href=\"#!\" class=\"modal-action modal-close waves-effect waves-green btn-flat btn white lighten-1 green-text\" _v-6551df4c=\"\">Fechar</a>\n                <a href=\"#!\" class=\"modal-action modal-close waves-effect waves-green btn-flat btn white darken-1 green-text\" @click=\"create($event)\" _v-6551df4c=\"\">Adicionar</a>\n            </div>\n        </div>\n    </div>\n\n\n</div>\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
